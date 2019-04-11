@@ -2,15 +2,11 @@ const Casino = artifacts.require("./Casino.sol");
 // const web3 = require("web3");
 
 contract("Casino", (accounts) => {
-    var casino;
+    let casino;
     console.log(accounts);
-    // Casino.deployed().then(instance => {
-    //     casino = instance;
-    // });
 
     describe('Casino contract.', () => {
         before(function(){
-            console.log("........depoly()");
             return Casino.deployed().then(function(instance) {
                 casino = instance;
                 console.log("contract address : ", casino.address);
@@ -60,27 +56,27 @@ contract("Casino", (accounts) => {
         it("check winner.", function() {
             return casino.checkWinner({from: accounts[0]})
             .then(result=> {
-                 console.log("result 0>>", result.logs[0].args["1"].toNumber());
-                 console.log("result 1>>", result.logs[1].args["1"].toNumber());
-                 console.log("result 2>>", result.logs[2].args["1"].toString());
-                 console.log("result 3>>", result.logs[3].args["1"].toString());
-                 console.log("result 4>>", result.logs[4].args["1"].toNumber());
+                 console.log("winner index>>", result.logs[0].args["1"].toNumber());
+                 console.log("participant >>", result.logs[1].args["1"].toNumber());
+                 console.log("winner seed >>", result.logs[2].args["1"].toString());
+                 console.log("winner addr >>", result.logs[3].args["1"].toString());
+                 console.log("prize money >>", result.logs[4].args["1"].toNumber(), "ether");
             }).catch(error => {
                 return casino.checkWinner({from: accounts[1]})
                 .then(result=> {
-                    console.log("result 0>>", result.logs[0].args["1"].toNumber());
-                    console.log("result 1>>", result.logs[1].args["1"].toNumber());
-                    console.log("result 2>>", result.logs[2].args["1"].toString());
-                    console.log("result 3>>", result.logs[3].args["1"].toString());
-                    console.log("result 4>>", result.logs[4].args["1"].toNumber());
+                    console.log("winner index>>", result.logs[0].args["1"].toNumber());
+                    console.log("participant >>", result.logs[1].args["1"].toNumber());
+                    console.log("winner seed >>", result.logs[2].args["1"].toString());
+                    console.log("winner addr >>", result.logs[3].args["1"].toString());
+                    console.log("prize money >>", result.logs[4].args["1"].toNumber());
                 }).catch(error => {
                     return casino.checkWinner({from: accounts[2]})
                     .then(result=> {
-                        console.log("result 0>>", result.logs[0].args["1"].toNumber());
-                        console.log("result 1>>", result.logs[1].args["1"].toNumber());
-                        console.log("result 2>>", result.logs[2].args["1"].toString());
-                        console.log("result 3>>", result.logs[3].args["1"].toString());
-                        console.log("result 4>>", result.logs[4].args["1"].toNumber());
+                        console.log("winner index>>", result.logs[0].args["1"].toNumber());
+                        console.log("participant >>", result.logs[1].args["1"].toNumber());
+                        console.log("winner seed >>", result.logs[2].args["1"].toString());
+                        console.log("winner addr >>", result.logs[3].args["1"].toString());
+                        console.log("prize money >>", result.logs[4].args["1"].toNumber());
                     }).catch(error => {
                         assert.fail("failed check winner.");
                     })
