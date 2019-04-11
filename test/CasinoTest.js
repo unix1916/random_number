@@ -65,23 +65,26 @@ contract("Casino", (accounts) => {
                  console.log("result 2>>", result.logs[2].args["1"].toString());
                  console.log("result 3>>", result.logs[3].args["1"].toString());
                  console.log("result 4>>", result.logs[4].args["1"].toNumber());
-                 return casino.checkWinner({from: accounts[1]})
-            }).then(result=> {
-                console.log("result 0>>", result.logs[0].args["1"].toNumber());
-                console.log("result 1>>", result.logs[1].args["1"].toNumber());
-                console.log("result 2>>", result.logs[2].args["1"].toString());
-                console.log("result 3>>", result.logs[3].args["1"].toString());
-                console.log("result 4>>", result.logs[4].args["1"].toNumber());
-                return casino.checkWinner({from: accounts[2]})
-            }).then(result=> {
-                console.log("result 0>>", result.logs[0].args["1"].toNumber());
-                console.log("result 1>>", result.logs[1].args["1"].toNumber());
-                console.log("result 2>>", result.logs[2].args["1"].toString());
-                console.log("result 3>>", result.logs[3].args["1"].toString());
-                console.log("result 4>>", result.logs[4].args["1"].toNumber());
             }).catch(error => {
-                console.log(error);
-                assert.fail("this user is not winner.");
+                return casino.checkWinner({from: accounts[1]})
+                .then(result=> {
+                    console.log("result 0>>", result.logs[0].args["1"].toNumber());
+                    console.log("result 1>>", result.logs[1].args["1"].toNumber());
+                    console.log("result 2>>", result.logs[2].args["1"].toString());
+                    console.log("result 3>>", result.logs[3].args["1"].toString());
+                    console.log("result 4>>", result.logs[4].args["1"].toNumber());
+                }).catch(error => {
+                    return casino.checkWinner({from: accounts[2]})
+                    .then(result=> {
+                        console.log("result 0>>", result.logs[0].args["1"].toNumber());
+                        console.log("result 1>>", result.logs[1].args["1"].toNumber());
+                        console.log("result 2>>", result.logs[2].args["1"].toString());
+                        console.log("result 3>>", result.logs[3].args["1"].toString());
+                        console.log("result 4>>", result.logs[4].args["1"].toNumber());
+                    }).catch(error => {
+                        assert.fail("failed check winner.");
+                    })
+                })
             })
         });
 
@@ -114,7 +117,7 @@ contract("Casino", (accounts) => {
                         console.log("user3 is winner.");
                     });
                 })
-            })            
+            })
         });
 
         it("after balance.", function() {
@@ -130,16 +133,9 @@ contract("Casino", (accounts) => {
             }).catch(console.log);
         });
 
-
-
-
-
         function timesleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-
-
-
 
     });
 
